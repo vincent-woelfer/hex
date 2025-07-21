@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bncw1ym8ok56x"]
+[gd_scene load_steps=12 format=3 uid="uid://bncw1ym8ok56x"]
 
 [ext_resource type="Script" uid="uid://dr6b4uglsqxpg" path="res://src/effects/VFXFlameThrower.gd" id="1_xteag"]
 [ext_resource type="Texture2D" uid="uid://blkjyygfbg5yx" path="res://assets/textures/flame_thrower/flare.png" id="2_hdics"]
+[ext_resource type="Script" uid="uid://boa8rm5thbmui" path="res://src/components/HitBox.gd" id="3_fp8fe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xteag"]
 transparency = 1
@@ -50,6 +51,9 @@ color_ramp = SubResource("GradientTexture1D_fp8fe")
 
 [sub_resource type="QuadMesh" id="QuadMesh_fp8fe"]
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fp8fe"]
+points = PackedVector3Array(0, 0, 0, 3, 0, -7, -3, 0, -7)
+
 [node name="FlameThrower" type="Node3D"]
 script = ExtResource("1_xteag")
 
@@ -62,3 +66,11 @@ local_coords = true
 draw_order = 1
 process_material = SubResource("ParticleProcessMaterial_hdics")
 draw_pass_1 = SubResource("QuadMesh_fp8fe")
+
+[node name="HitBox" type="Area3D" parent="."]
+script = ExtResource("3_fp8fe")
+metadata/_custom_type_script = "uid://boa8rm5thbmui"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("ConvexPolygonShape3D_fp8fe")
+debug_color = Color(1, 0, 0, 0.78431374)

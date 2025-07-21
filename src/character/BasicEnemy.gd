@@ -46,6 +46,8 @@ func _ready() -> void:
 
 	original_color = (mesh.get_active_material(0) as StandardMaterial3D).albedo_color
 
+	health_component.died.connect(self.queue_free)
+
 
 	# Set initial goal
 	if not _choose_new_goal():
@@ -60,11 +62,11 @@ func _ready() -> void:
 	add_child(Util.timer(3.0, _periodic_stuck_check))
 
 	# For testing purposes, remove later
-	add_child(Util.timer(1.0, _dmg_test))
+	# add_child(Util.timer(1.0, _dmg_test))
 
-func _dmg_test() -> void:
+# func _dmg_test() -> void:
 	# For testing purposes, apply damage to self
-	health_component.apply_effect(ActionEffect.new(ActionEffect.EffectType.DAMAGE, 10))
+	# health_component.apply_effect(ActionEffect.new(ActionEffect.EffectType.DAMAGE, 10))
 
 
 func _physics_process(delta: float) -> void:

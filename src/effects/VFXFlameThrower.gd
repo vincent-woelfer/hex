@@ -9,6 +9,19 @@ static var scene: PackedScene = preload("res://scenes/effects/FlameThrower.tscn"
 @export_tool_button("Restart Particles")
 var button := start
 
+# TODO refactor
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
+	var hitbox: HitBox = get_node("HitBox") as HitBox
+	hitbox.hurt_box_entered.connect(_on_hurt_box_entered)
+
+
+func _on_hurt_box_entered(hurt_box: HurtBox) -> void:
+	var effect: ActionEffect = ActionEffect.new(ActionEffect.EffectType.DAMAGE, 20)
+	hurt_box.apply_all_effects([effect])
+
 static func spawn_at_parent(parent: Node3D) -> VFXFlameThrower:
 	var instance := scene.instantiate() as VFXFlameThrower
 	Util.spawn(instance, Vector3(0, 1.2, 0), parent)
