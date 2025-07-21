@@ -6,6 +6,7 @@ extends HexPhysicsCharacterBody3D
 @onready var collision: CollisionShape3D = $Collision
 @onready var pick_up_manager: PickUpManager = $RotationAxis/PickUpManager
 @onready var mesh: MeshInstance3D = $RotationAxis/Mesh
+@onready var health_component: HealthComponent = $HealthComponent
 var original_color: Color
 
 var speed_normal: float = 3.5
@@ -34,10 +35,6 @@ var explosion_viusal_target_color := Color.RED.lightened(0.5)
 # stuck check
 var stuck_check_last_pos: Vector3 = Vector3.ZERO
 
-# testing
-var ui: BasicEnemyUI
-var hp := 100.0
-
 
 func _ready() -> void:
 	# Initalize components
@@ -62,15 +59,15 @@ func _ready() -> void:
 
 	add_child(Util.timer(3.0, _periodic_stuck_check))
 
-	###########################
-	ui = UIManager.attach_ui_scene(self, ResLoader.BASIC_ENEMY_UI_SCENE)
-	ui.set_health(100, 100)
+	# For testing purposes, remove later
+	add_child(Util.timer(1.0, _dmg_test))
+
+func _dmg_test() -> void:
+	# For testing purposes, apply damage to self
+	health_component.apply_effect(ActionEffect.new(ActionEffect.EffectType.DAMAGE, 10))
 
 
 func _physics_process(delta: float) -> void:
-	hp -= delta * 15.5
-	ui.set_health(hp, 100)
-
 	if is_exploding:
 		# Execute move_and_slide() to enable gravity/being pushed
 		# move_and_slide()

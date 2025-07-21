@@ -26,7 +26,7 @@ func _ready() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 		if DebugSettings.low_performance_mode:
-			print("Running in low performance mode")
+			HexLog.print_banner_with_text("Running in low performance mode")
 			get_window().get_viewport().scaling_3d_mode = Viewport.SCALING_3D_MODE_FSR
 			get_window().get_viewport().scaling_3d_scale = 0.5
 
@@ -177,6 +177,8 @@ func _get_num_players() -> int:
 	return get_tree().get_nodes_in_group(HexConst.GROUP_PLAYERS).size()
 
 func delete_far_away_entities() -> void:
+	if not caravan:
+		return
 	var center := caravan.global_position
 	# Deletion dist ist smaller than map/chunk deletion dist (but a factor of it)
 	var max_dist: float = HexConst.distance_hex_to_m(MapGeneration.tile_generation_distance_hex) * 0.55
