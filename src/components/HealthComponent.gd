@@ -1,4 +1,3 @@
-@tool
 class_name HealthComponent extends Node3D
 
 var ui: BasicEnemyUI

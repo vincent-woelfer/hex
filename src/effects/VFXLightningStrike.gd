@@ -6,12 +6,12 @@ static var default_duration := 0.6
 static var scene: PackedScene = preload("res://scenes/effects/LightningStrike.tscn")
 
 
-@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var preset_color_gradients := {
 	"pink": preload("res://assets/shaders/lightning/lightning_gradient_texture_pink.tres"),
 	"black": preload("res://assets/shaders/lightning/lightning_gradient_texture_black.tres"),
 	
 }
+@onready var mesh: MeshInstance3D = $MeshInstance3D
 
 var lightning_material: ShaderMaterial
 var floor_mark_material: ShaderMaterial
@@ -28,14 +28,19 @@ func _process(delta: float) -> void:
 	
 
 func setup_shader_materials(color_preset: String) -> void:
-	floor_mark_material = mesh_instance_3d.get_active_material(0).duplicate()
-	mesh_instance_3d.set_surface_override_material(0, floor_mark_material)
+	if not preset_color_gradients.has(color_preset):
+		push_warning("Color preset not found: " + color_preset)
+		color_preset = "black"
+
+
+	floor_mark_material = mesh.get_active_material(0).duplicate()
+	mesh.set_surface_override_material(0, floor_mark_material)
 	
-	lightning_material = mesh_instance_3d.get_active_material(1).duplicate()
-	mesh_instance_3d.set_surface_override_material(1, lightning_material)
+	lightning_material = mesh.get_active_material(1).duplicate()
+	mesh.set_surface_override_material(1, lightning_material)
 	
-	lightning_wave_material = mesh_instance_3d.get_active_material(2).duplicate()
-	mesh_instance_3d.set_surface_override_material(2, lightning_wave_material)
+	lightning_wave_material = mesh.get_active_material(2).duplicate()
+	mesh.set_surface_override_material(2, lightning_wave_material)
 	
 	floor_mark_material.set_shader_parameter("gradient_color_texture", preset_color_gradients[color_preset])
 	lightning_material.set_shader_parameter("gradient_color_texture", preset_color_gradients[color_preset])
