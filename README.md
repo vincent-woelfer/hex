@@ -2,7 +2,7 @@
 
 A 3D local multiplayer co-op brawler built with Godot 4, focused on emergent cooperative gameplay in procedurally generated worlds.
 
-
+![Current Gameplay](docs/screenshots/gameplay_1.png)
 
 ![Procedual World Generation](docs/screenshots/worldgen_1.png)
 
