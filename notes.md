@@ -1,12 +1,9 @@
-TODO
-3D Character Controller:
+## Tips
+- Variables in @tool scripts (like HexConst) are ephemeral. They get set to the value in the script on editor start an can be changed via code (e.g. HexConstModifier). They will be lost (= reset to the value specified in code) upon editor restart. Modify them for testing but safe the correct values somewhere!
 
-# https://www.youtube.com/watch?v=C-1AerTEjFU&t=210s
 
-# TODO
-
+## TODO
 - detect stuck enemies
-
 - align trerrain-gen with nav-mesh capabilities
   - improve smooth edges.
     - Take neighbour hex into account?
@@ -14,16 +11,6 @@ TODO
   - Nav-Mesh Generation verbessern? -> use lower-detail version of terrain?
 - Thread-Safe materials?
 
-# Ideen Nek
 
-- bouncy bomben
-
-- chaos skills, bouncy bombe, friendly-fire?
-
-
-
-https://www.youtube.com/watch?v=K9JizfQ-oFU
-
-
-# VFX / Shader Ideas/Inspo
+## VFX / Shader Ideas/Inspo
 - https://godotshaders.com/shader/raymarched-3d-noise-decal/
